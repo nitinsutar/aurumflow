@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: #f7f8fb;
+  color: #111827;
+}
+
+input,
+select,
+textarea {
+  @apply rounded-md border border-slate-200 bg-white px-3 py-2 text-sm outline-none ring-gold/20 transition focus:border-gold focus:ring-4;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.barcode {
+  background: repeating-linear-gradient(90deg, #111827 0 2px, transparent 2px 5px, #111827 5px 6px, transparent 6px 10px);
+}
