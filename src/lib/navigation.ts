@@ -1,7 +1,15 @@
 import { BarChart3, Bell, Boxes, Building2, Calculator, ClipboardList, Factory, Gem, LayoutDashboard, Lock, PackageCheck, QrCode, Settings, Shield, ShoppingBag, Sparkles, Users } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type { RoleSlug } from "@/lib/types";
 
-export const navItems = [
+type NavItem = {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  roles: RoleSlug[];
+};
+
+export const navItems: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, roles: ["owner", "inventory", "production", "auditor"] },
   { href: "/inventory", label: "Raw Inventory", icon: Boxes, roles: ["owner", "inventory"] },
   { href: "/ledger", label: "Ledger", icon: ClipboardList, roles: ["owner", "inventory", "accountant"] },
@@ -21,7 +29,7 @@ export const navItems = [
   { href: "/audit", label: "Audit", icon: Lock, roles: ["owner", "accountant", "auditor"] },
   { href: "/settings", label: "Settings", icon: Settings, roles: ["owner"] },
   { href: "/super-admin", label: "Super Admin", icon: Shield, roles: ["super-admin"] }
-] satisfies { href: string; label: string; icon: typeof LayoutDashboard; roles: RoleSlug[] }[];
+];
 
 export function visibleNav(role: RoleSlug) {
   return navItems.filter((item) => item.roles.includes(role));
