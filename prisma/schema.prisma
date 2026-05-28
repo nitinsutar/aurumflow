@@ -194,15 +194,16 @@ model Location {
 }
 
 model Material {
-  id           String       @id @default(cuid())
+  id           String          @id @default(cuid())
   companyId    String
-  company      Company      @relation(fields: [companyId], references: [id])
+  company      Company         @relation(fields: [companyId], references: [id])
   name         String
   type         MaterialType
   purityKarat  Decimal?
   purityPct    Decimal?
-  unit         String       @default("g")
-  reorderLevel Decimal      @default(0)
+  unit         String          @default("g")
+  reorderLevel Decimal         @default(0)
+  inventory    InventoryItem[]
 }
 
 model InventoryItem {
