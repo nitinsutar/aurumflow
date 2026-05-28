@@ -41,6 +41,10 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+## Deployment
+
+Vercel should build from the latest `main` commit. The build runs Prisma client generation before Next.js compilation.
+
 ## Demo Users
 
 All demo passwords are `password123`.
