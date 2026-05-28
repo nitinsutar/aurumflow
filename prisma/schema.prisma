@@ -8,16 +8,104 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum CompanyStatus { ACTIVE SUSPENDED DELETED }
-enum MaterialType { GOLD SILVER PLATINUM DIAMOND GEMSTONE PEARL FINDING ACCESSORY }
-enum InventoryStatus { AVAILABLE RESERVED ISSUED IN_PRODUCTION SCRAP LOST INACTIVE }
-enum OrderStatus { NEW_ORDER DESIGN_APPROVAL_PENDING APPROVED IN_PRODUCTION QUALITY_CHECK HALLMARK_CERTIFICATION READY_FOR_DELIVERY DELIVERED CANCELLED }
-enum ProductionStage { DESIGN WAX_CAD CASTING FILING STONE_SETTING POLISHING QUALITY_CHECK HALLMARKING FINISHED }
-enum JobCardStatus { CREATED MATERIAL_ISSUED IN_PROGRESS PARTIALLY_RETURNED COMPLETED REWORK CANCELLED }
-enum MovementType { PURCHASE ISSUE_TO_PRODUCTION ISSUE_TO_KARIGAR RETURN_FROM_KARIGAR PRODUCTION_CONSUMPTION FINISHED_GOODS_ENTRY SCRAP_ENTRY WASTAGE LOSS TRANSFER ADJUSTMENT SALE_DELIVERY }
-enum FinishedGoodStatus { AVAILABLE RESERVED SOLD_DELIVERED UNDER_QC REWORK DAMAGED }
-enum VendorType { METAL_SUPPLIER DIAMOND_SUPPLIER STONE_SUPPLIER JOB_WORKER PACKAGING_SUPPLIER }
-enum AlertSeverity { INFO WARNING CRITICAL }
+enum CompanyStatus {
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum MaterialType {
+  GOLD
+  SILVER
+  PLATINUM
+  DIAMOND
+  GEMSTONE
+  PEARL
+  FINDING
+  ACCESSORY
+}
+
+enum InventoryStatus {
+  AVAILABLE
+  RESERVED
+  ISSUED
+  IN_PRODUCTION
+  SCRAP
+  LOST
+  INACTIVE
+}
+
+enum OrderStatus {
+  NEW_ORDER
+  DESIGN_APPROVAL_PENDING
+  APPROVED
+  IN_PRODUCTION
+  QUALITY_CHECK
+  HALLMARK_CERTIFICATION
+  READY_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum ProductionStage {
+  DESIGN
+  WAX_CAD
+  CASTING
+  FILING
+  STONE_SETTING
+  POLISHING
+  QUALITY_CHECK
+  HALLMARKING
+  FINISHED
+}
+
+enum JobCardStatus {
+  CREATED
+  MATERIAL_ISSUED
+  IN_PROGRESS
+  PARTIALLY_RETURNED
+  COMPLETED
+  REWORK
+  CANCELLED
+}
+
+enum MovementType {
+  PURCHASE
+  ISSUE_TO_PRODUCTION
+  ISSUE_TO_KARIGAR
+  RETURN_FROM_KARIGAR
+  PRODUCTION_CONSUMPTION
+  FINISHED_GOODS_ENTRY
+  SCRAP_ENTRY
+  WASTAGE
+  LOSS
+  TRANSFER
+  ADJUSTMENT
+  SALE_DELIVERY
+}
+
+enum FinishedGoodStatus {
+  AVAILABLE
+  RESERVED
+  SOLD_DELIVERED
+  UNDER_QC
+  REWORK
+  DAMAGED
+}
+
+enum VendorType {
+  METAL_SUPPLIER
+  DIAMOND_SUPPLIER
+  STONE_SUPPLIER
+  JOB_WORKER
+  PACKAGING_SUPPLIER
+}
+
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
 
 model Company {
   id          String        @id @default(cuid())
@@ -151,73 +239,73 @@ model InventoryItem {
 }
 
 model InventoryLedger {
-  id             String       @id @default(cuid())
-  companyId      String
-  company        Company      @relation(fields: [companyId], references: [id])
+  id              String         @id @default(cuid())
+  companyId       String
+  company         Company        @relation(fields: [companyId], references: [id])
   inventoryItemId String?
-  inventoryItem  InventoryItem? @relation(fields: [inventoryItemId], references: [id])
-  movementType   MovementType
-  inwardWeight   Decimal      @default(0)
-  outwardWeight  Decimal      @default(0)
-  inwardQty      Decimal      @default(0)
-  outwardQty     Decimal      @default(0)
-  balanceWeight  Decimal      @default(0)
-  balanceQty     Decimal      @default(0)
-  source         String?
-  destination    String?
-  reference      String?
-  remarks        String?
-  userId         String?
-  user           User?        @relation(fields: [userId], references: [id])
-  createdAt      DateTime     @default(now())
+  inventoryItem   InventoryItem? @relation(fields: [inventoryItemId], references: [id])
+  movementType    MovementType
+  inwardWeight    Decimal        @default(0)
+  outwardWeight   Decimal        @default(0)
+  inwardQty       Decimal        @default(0)
+  outwardQty      Decimal        @default(0)
+  balanceWeight   Decimal        @default(0)
+  balanceQty      Decimal        @default(0)
+  source          String?
+  destination     String?
+  reference       String?
+  remarks         String?
+  userId          String?
+  user            User?          @relation(fields: [userId], references: [id])
+  createdAt       DateTime       @default(now())
 }
 
 model MetalRate {
-  id          String       @id @default(cuid())
-  companyId   String
-  company     Company      @relation(fields: [companyId], references: [id])
+  id           String       @id @default(cuid())
+  companyId    String
+  company      Company      @relation(fields: [companyId], references: [id])
   materialType MaterialType
-  purityKarat Decimal?
-  ratePerGram Decimal
-  rateDate    DateTime
+  purityKarat  Decimal?
+  ratePerGram  Decimal
+  rateDate     DateTime
 }
 
 model ProductDesign {
-  id              String   @id @default(cuid())
-  companyId       String
-  company         Company  @relation(fields: [companyId], references: [id])
-  designName      String
-  sku             String
-  category        String
-  imageUrl        String?
-  cadFileUrl      String?
-  metalType       MaterialType
-  expectedMetalWeight Decimal
-  expectedStoneWeight Decimal @default(0)
-  expectedWastage Decimal @default(0)
-  labourProcess   String
-  makingChargeType String
-  estimatedCost   Decimal @default(0)
-  sellingSuggestion Decimal @default(0)
-  active          Boolean @default(true)
-  bom             BOM[]
-  orders          Order[]
-  jobCards        JobCard[]
-  finished        FinishedGood[]
+  id                    String       @id @default(cuid())
+  companyId             String
+  company               Company      @relation(fields: [companyId], references: [id])
+  designName            String
+  sku                   String
+  category              String
+  imageUrl              String?
+  cadFileUrl            String?
+  metalType             MaterialType
+  expectedMetalWeight   Decimal
+  expectedStoneWeight   Decimal      @default(0)
+  expectedWastage       Decimal      @default(0)
+  labourProcess         String
+  makingChargeType      String
+  estimatedCost         Decimal      @default(0)
+  sellingSuggestion     Decimal      @default(0)
+  active                Boolean      @default(true)
+  bom                   BOM[]
+  orders                Order[]
+  jobCards              JobCard[]
+  finished              FinishedGood[]
 }
 
 model BOM {
-  id        String @id @default(cuid())
-  designId  String
-  design    ProductDesign @relation(fields: [designId], references: [id])
-  material  String
-  quantity  Decimal
-  unit      String
-  notes     String?
+  id       String        @id @default(cuid())
+  designId String
+  design   ProductDesign @relation(fields: [designId], references: [id])
+  material String
+  quantity Decimal
+  unit     String
+  notes    String?
 }
 
 model Customer {
-  id            String @id @default(cuid())
+  id            String  @id @default(cuid())
   companyId     String
   company       Company @relation(fields: [companyId], references: [id])
   customerName  String
@@ -232,115 +320,115 @@ model Customer {
 }
 
 model Vendor {
-  id              String @id @default(cuid())
-  companyId       String
-  company         Company @relation(fields: [companyId], references: [id])
-  vendorName      String
-  vendorType      VendorType
-  contactDetails  String?
-  gstNumber       String?
-  address         String?
+  id               String          @id @default(cuid())
+  companyId        String
+  company          Company         @relation(fields: [companyId], references: [id])
+  vendorName       String
+  vendorType       VendorType
+  contactDetails   String?
+  gstNumber        String?
+  address          String?
   materialSupplied String?
-  inventory       InventoryItem[]
+  inventory        InventoryItem[]
 }
 
 model Order {
-  id            String @id @default(cuid())
-  companyId     String
-  company       Company @relation(fields: [companyId], references: [id])
-  customerId    String?
-  customer      Customer? @relation(fields: [customerId], references: [id])
-  designId      String?
-  design        ProductDesign? @relation(fields: [designId], references: [id])
-  orderNumber   String
-  orderDate     DateTime
-  deliveryDate  DateTime
-  customRequirement String?
-  quantity      Int
-  metalType     MaterialType
-  purityKarat   Decimal?
-  stoneRequirements String?
-  advanceReceived Decimal @default(0)
-  status        OrderStatus @default(NEW_ORDER)
-  notes         String?
-  attachmentUrl String?
-  jobCards      JobCard[]
-  finished      FinishedGood[]
+  id                 String        @id @default(cuid())
+  companyId          String
+  company            Company       @relation(fields: [companyId], references: [id])
+  customerId         String?
+  customer           Customer?     @relation(fields: [customerId], references: [id])
+  designId           String?
+  design             ProductDesign? @relation(fields: [designId], references: [id])
+  orderNumber        String
+  orderDate          DateTime
+  deliveryDate       DateTime
+  customRequirement  String?
+  quantity           Int
+  metalType          MaterialType
+  purityKarat        Decimal?
+  stoneRequirements  String?
+  advanceReceived    Decimal       @default(0)
+  status             OrderStatus   @default(NEW_ORDER)
+  notes              String?
+  attachmentUrl      String?
+  jobCards           JobCard[]
+  finished           FinishedGood[]
 }
 
 model JobCard {
-  id             String @id @default(cuid())
-  companyId      String
-  company        Company @relation(fields: [companyId], references: [id])
-  orderId        String?
-  order          Order? @relation(fields: [orderId], references: [id])
-  designId       String?
-  design         ProductDesign? @relation(fields: [designId], references: [id])
-  assignedKarigarId String?
-  assignedKarigar User? @relation("AssignedKarigar", fields: [assignedKarigarId], references: [id])
-  jobCardNumber  String
-  stage          ProductionStage
-  materialIssued Decimal @default(0)
-  issueDate      DateTime?
-  expectedReturn DateTime?
-  expectedWeight Decimal @default(0)
-  actualReturnWeight Decimal @default(0)
-  wastage        Decimal @default(0)
-  loss           Decimal @default(0)
-  labourCharges  Decimal @default(0)
-  status         JobCardStatus @default(CREATED)
-  remarks        String?
-  issues         MaterialIssue[]
-  returns        MaterialReturn[]
-  barcode        Barcode?
+  id                 String          @id @default(cuid())
+  companyId          String
+  company            Company         @relation(fields: [companyId], references: [id])
+  orderId            String?
+  order              Order?          @relation(fields: [orderId], references: [id])
+  designId           String?
+  design             ProductDesign?  @relation(fields: [designId], references: [id])
+  assignedKarigarId  String?
+  assignedKarigar    User?           @relation("AssignedKarigar", fields: [assignedKarigarId], references: [id])
+  jobCardNumber      String
+  stage              ProductionStage
+  materialIssued     Decimal         @default(0)
+  issueDate          DateTime?
+  expectedReturn     DateTime?
+  expectedWeight     Decimal         @default(0)
+  actualReturnWeight Decimal         @default(0)
+  wastage            Decimal         @default(0)
+  loss               Decimal         @default(0)
+  labourCharges      Decimal         @default(0)
+  status             JobCardStatus   @default(CREATED)
+  remarks            String?
+  issues             MaterialIssue[]
+  returns            MaterialReturn[]
+  barcode            Barcode?
 }
 
 model MaterialIssue {
-  id        String @id @default(cuid())
-  jobCardId String
-  jobCard   JobCard @relation(fields: [jobCardId], references: [id])
+  id           String       @id @default(cuid())
+  jobCardId    String
+  jobCard      JobCard      @relation(fields: [jobCardId], references: [id])
   materialType MaterialType
-  weight    Decimal @default(0)
-  quantity  Decimal @default(0)
-  issuedAt  DateTime @default(now())
-  remarks   String?
+  weight       Decimal      @default(0)
+  quantity     Decimal      @default(0)
+  issuedAt     DateTime     @default(now())
+  remarks      String?
 }
 
 model MaterialReturn {
-  id        String @id @default(cuid())
-  jobCardId String
-  jobCard   JobCard @relation(fields: [jobCardId], references: [id])
-  materialType MaterialType
-  returnedWeight Decimal @default(0)
-  scrapWeight Decimal @default(0)
-  wastageWeight Decimal @default(0)
-  returnedAt DateTime @default(now())
-  remarks String?
+  id             String       @id @default(cuid())
+  jobCardId      String
+  jobCard        JobCard      @relation(fields: [jobCardId], references: [id])
+  materialType   MaterialType
+  returnedWeight Decimal      @default(0)
+  scrapWeight    Decimal      @default(0)
+  wastageWeight  Decimal      @default(0)
+  returnedAt     DateTime     @default(now())
+  remarks        String?
 }
 
 model FinishedGood {
-  id             String @id @default(cuid())
+  id             String             @id @default(cuid())
   companyId      String
-  company        Company @relation(fields: [companyId], references: [id])
+  company        Company            @relation(fields: [companyId], references: [id])
   designId       String?
-  design         ProductDesign? @relation(fields: [designId], references: [id])
+  design         ProductDesign?     @relation(fields: [designId], references: [id])
   orderId        String?
-  order          Order? @relation(fields: [orderId], references: [id])
+  order          Order?             @relation(fields: [orderId], references: [id])
   locationId     String?
-  location       Location? @relation(fields: [locationId], references: [id])
+  location       Location?          @relation(fields: [locationId], references: [id])
   sku            String
   rfid           String?
   metalType      MaterialType
   purityKarat    Decimal?
   grossWeight    Decimal
   netWeight      Decimal
-  stoneWeight    Decimal @default(0)
+  stoneWeight    Decimal            @default(0)
   diamondDetails String?
-  makingCost     Decimal @default(0)
-  stoneCost      Decimal @default(0)
-  metalCost      Decimal @default(0)
-  totalCost      Decimal @default(0)
-  sellingPrice   Decimal @default(0)
+  makingCost     Decimal            @default(0)
+  stoneCost      Decimal            @default(0)
+  metalCost      Decimal            @default(0)
+  totalCost      Decimal            @default(0)
+  sellingPrice   Decimal            @default(0)
   huid           String?
   certification  String?
   status         FinishedGoodStatus @default(AVAILABLE)
@@ -348,15 +436,15 @@ model FinishedGood {
 }
 
 model Barcode {
-  id              String @id @default(cuid())
-  code            String @unique
+  id              String         @id @default(cuid())
+  code            String         @unique
   labelType       String
-  inventoryItemId String? @unique
+  inventoryItemId String?        @unique
   inventoryItem   InventoryItem? @relation(fields: [inventoryItemId], references: [id])
-  jobCardId       String? @unique
-  jobCard         JobCard? @relation(fields: [jobCardId], references: [id])
-  finishedGoodId  String? @unique
-  finishedGood    FinishedGood? @relation(fields: [finishedGoodId], references: [id])
+  jobCardId       String?        @unique
+  jobCard         JobCard?       @relation(fields: [jobCardId], references: [id])
+  finishedGoodId  String?        @unique
+  finishedGood    FinishedGood?  @relation(fields: [finishedGoodId], references: [id])
   rfidPlaceholder String?
 }
 
@@ -369,22 +457,22 @@ model ReportSavedView {
 }
 
 model Alert {
-  id        String @id @default(cuid())
+  id        String        @id @default(cuid())
   companyId String
-  company   Company @relation(fields: [companyId], references: [id])
+  company   Company       @relation(fields: [companyId], references: [id])
   title     String
   message   String
   severity  AlertSeverity @default(INFO)
-  resolved  Boolean @default(false)
-  createdAt DateTime @default(now())
+  resolved  Boolean       @default(false)
+  createdAt DateTime      @default(now())
 }
 
 model ActivityLog {
-  id        String @id @default(cuid())
+  id        String   @id @default(cuid())
   companyId String?
   company   Company? @relation(fields: [companyId], references: [id])
   userId    String?
-  user      User? @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
   action    String
   entity    String
   entityId  String?
