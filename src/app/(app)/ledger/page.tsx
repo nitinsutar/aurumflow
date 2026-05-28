@@ -1,0 +1,6 @@
+import { Badge, Section, Table } from "@/components/ui";
+import { ledger } from "@/lib/mock-data";
+
+export default function LedgerPage() {
+  return <div className="space-y-6"><div><h1 className="text-2xl font-semibold text-ink">Inventory Ledger</h1><p className="mt-1 text-sm text-slate-500">Every purchase, issue, return, consumption, scrap, wastage, transfer, adjustment, and delivery is recorded here.</p></div><Section title="Ledger Entries" action={<button className="rounded-md border px-3 py-2 text-sm">Export CSV</button>}><Table headers={["Date", "Material/Item", "Movement", "Inward", "Outward", "Balance", "Source", "Destination", "User", "Reference", "Remarks"]}>{ledger.map((entry) => <tr key={entry.id}><td className="px-3 py-3">{entry.date}</td><td className="px-3 py-3 font-medium">{entry.item}</td><td className="px-3 py-3"><Badge>{entry.movementType}</Badge></td><td className="px-3 py-3">{entry.inwardWeight}</td><td className="px-3 py-3">{entry.outwardWeight}</td><td className="px-3 py-3">{entry.balanceWeight}</td><td className="px-3 py-3">{entry.source}</td><td className="px-3 py-3">{entry.destination}</td><td className="px-3 py-3">{entry.user}</td><td className="px-3 py-3">{entry.reference}</td><td className="px-3 py-3">{entry.remarks}</td></tr>)}</Table></Section></div>;
+}
