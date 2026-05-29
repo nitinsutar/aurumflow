@@ -18,12 +18,7 @@ export async function GET() {
   try {
     const companyId = await resolveCompanyId(session.companyId);
     if (!companyId) return NextResponse.json({ items: [] });
-    const items = await prisma.inventoryItem.findMany({
-      where: { companyId, deletedAt: null },
-      orderBy: { createdAt: "desc" },
-      take: 50,
-      include: { ledgers: { orderBy: { createdAt: "desc" }, take: 1 } }
-    });
+    const items = await prisma.inventoryItem.findMany({ where: { companyId, deletedAt: null }, orderBy: { createdAt: "desc" }, take: 50, include: { ledgers: { orderBy: { createdAt: "desc" }, take: 1 } } });
     return NextResponse.json({ items });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to load inventory" }, { status: 500 });
@@ -37,20 +32,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const companyId = await resolveCompanyId(session.companyId || body.companyId);
     if (!companyId) return NextResponse.json({ error: "Create a company before adding inventory." }, { status: 400 });
-    const item = await createInventoryLot({
-      companyId,
-      itemName: body.itemName,
-      materialType: body.materialType,
-      purityKarat: body.purityKarat ? Number(body.purityKarat) : undefined,
-      customPurityPct: body.customPurityPct ? Number(body.customPurityPct) : undefined,
-      grossWeight: Number(body.grossWeight || 0),
-      netWeight: Number(body.netWeight || 0),
-      quantity: body.quantity ? Number(body.quantity) : 0,
-      unit: body.unit || "g",
-      batchNumber: body.batchNumber,
-      purchaseRate: Number(body.purchaseRate || 0),
-      storageLocation: body.storageLocation
-    });
+    const item = await createInventoryLot({ companyId, itemName: body.itemName, materialType: body.materialType, purityKarat: body.purityKarat ? Number(body.purityKarat) : undefined, customPurityPct: body.customPurityPct ? Number(body.customPurityPct) : undefined, grossWeight: Number(body.grossWeight || 0), netWeight: Number(body.netWeight || 0), quantity: body.quantity ? Number(body.quantity) : 0, unit: body.unit || "g", batchNumber: body.batchNumber, purchaseRate: Number(body.purchaseRate || 0), storageLocation: body.storageLocation });
     return NextResponse.json(item, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to create inventory lot" }, { status: 500 });
