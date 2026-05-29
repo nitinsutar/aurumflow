@@ -1,4 +1,4 @@
-import { BarChart3, Bell, Boxes, Building2, Calculator, ClipboardList, Factory, Gem, LayoutDashboard, Lock, PackageCheck, QrCode, Settings, Shield, ShoppingBag, Sparkles, Users } from "lucide-react";
+import { BarChart3, Bell, Boxes, Building2, Calculator, ClipboardList, Factory, Gem, LayoutDashboard, Lock, PackageCheck, QrCode, RotateCcw, Settings, Shield, ShoppingBag, Sparkles, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { RoleSlug } from "@/lib/types";
 
@@ -11,7 +11,11 @@ type NavItem = {
 
 export const navItems: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, roles: ["owner", "inventory", "production", "auditor"] },
+  { href: "/sku-variants", label: "SKU Variants", icon: QrCode, roles: ["owner", "inventory", "sales", "production", "auditor"] },
   { href: "/inventory", label: "Raw Inventory", icon: Boxes, roles: ["owner", "inventory"] },
+  { href: "/components-bom", label: "Components & BOM", icon: PackageCheck, roles: ["owner", "inventory", "production"] },
+  { href: "/returns", label: "Returns", icon: RotateCcw, roles: ["owner", "inventory", "sales"] },
+  { href: "/insights", label: "Insights", icon: BarChart3, roles: ["owner", "inventory", "sales", "auditor"] },
   { href: "/ledger", label: "Ledger", icon: ClipboardList, roles: ["owner", "inventory", "accountant"] },
   { href: "/metal-rates", label: "Metal Rates", icon: Gem, roles: ["owner", "inventory", "accountant"] },
   { href: "/designs", label: "Design Master", icon: Sparkles, roles: ["owner", "production"] },
@@ -28,6 +32,7 @@ export const navItems: NavItem[] = [
   { href: "/assistant", label: "AI Assistant", icon: Sparkles, roles: ["owner", "inventory", "production", "sales"] },
   { href: "/audit", label: "Audit", icon: Lock, roles: ["owner", "accountant", "auditor"] },
   { href: "/settings", label: "Settings", icon: Settings, roles: ["owner"] },
+  { href: "/users", label: "Users & Roles", icon: Users, roles: ["owner", "super-admin"] },
   { href: "/super-admin", label: "Super Admin", icon: Shield, roles: ["super-admin"] }
 ];
 
