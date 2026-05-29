@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type React from "react";
 import { RefreshCw, Save } from "lucide-react";
 import { Badge, Section } from "@/components/ui";
 
@@ -23,7 +22,24 @@ type LiveItem = {
   createdAt: string;
 };
 
-const materialTypes = ["GOLD", "SILVER", "PLATINUM", "DIAMOND", "GEMSTONE", "PEARL", "FINDING", "ACCESSORY"];
+const materialTypes = [
+  ["BRASS", "Brass"],
+  ["COPPER", "Copper"],
+  ["ALLOY", "Alloy"],
+  ["SILVER", "Silver"],
+  ["CZ", "Cubic Zirconia (CZ)"],
+  ["AD", "American Diamond (AD)"],
+  ["KUNDAN", "Kundan"],
+  ["PEARL", "Pearl"],
+  ["GLASS_BEAD", "Glass Bead"],
+  ["RESIN", "Resin"],
+  ["FINDING", "Finding"],
+  ["CHAIN", "Chain"],
+  ["CLASP", "Clasp"],
+  ["HOOK", "Hook"],
+  ["PACKAGING", "Packaging"],
+  ["FINISHED_GOOD", "Finished Good"]
+];
 
 export function InventoryLive() {
   const [items, setItems] = useState<LiveItem[]>([]);
@@ -81,8 +97,8 @@ export function InventoryLive() {
           <div className="grid gap-3 sm:grid-cols-2">
             <input name="itemName" placeholder="Item name" required />
             <select name="materialType" required>
-              {materialTypes.map((type) => (
-                <option key={type} value={type}>{type}</option>
+              {materialTypes.map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
               ))}
             </select>
             <input name="purityKarat" placeholder="Karat, e.g. 22" type="number" step="0.01" />
