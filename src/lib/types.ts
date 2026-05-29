@@ -1,21 +1,27 @@
-export type RoleSlug =
-  | "super-admin"
-  | "owner"
-  | "inventory"
-  | "production"
-  | "karigar"
-  | "sales"
-  | "accountant"
-  | "auditor";
+export type RoleSlug = "super-admin" | "company-admin" | "inventory-manager" | "billing-manager";
 
-export type MaterialType = "Gold" | "Silver" | "Platinum" | "Diamond" | "Gemstone" | "Pearl" | "Finding" | "Accessory";
+export type MaterialType =
+  | "Brass"
+  | "Copper"
+  | "Alloy"
+  | "Silver"
+  | "CZ"
+  | "AD"
+  | "Kundan"
+  | "Pearl"
+  | "Glass Bead"
+  | "Resin"
+  | "Finding"
+  | "Chain"
+  | "Clasp"
+  | "Hook"
+  | "Packaging"
+  | "Finished Good";
 
 export type InventoryItem = {
   id: string;
   itemName: string;
   materialType: MaterialType;
-  purityKarat?: number;
-  customPurityPct?: number;
   grossWeight: number;
   netWeight: number;
   fineEquivalent: number;
@@ -39,6 +45,9 @@ export type LedgerEntry = {
   inwardWeight: number;
   outwardWeight: number;
   balanceWeight: number;
+  inwardQty?: number;
+  outwardQty?: number;
+  balanceQty?: number;
   source: string;
   destination: string;
   user: string;
