@@ -9,10 +9,10 @@ export default function LoginPage() {
           <div className="mb-8 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-gold text-white">
             <Gem className="h-6 w-6" />
           </div>
-          <h1 className="text-4xl font-semibold tracking-normal sm:text-5xl">AurumFlow</h1>
-          <p className="mt-5 text-lg text-slate-300">Premium SaaS operations platform for jewellery manufacturers managing stock, karigars, production, orders, ledgers, and finished goods.</p>
+          <h1 className="text-4xl font-semibold tracking-normal sm:text-5xl">JewelSuite</h1>
+          <p className="mt-5 text-lg text-slate-300">Focused inventory platform for imitation jewellery manufacturers managing SKU variants, components, returns, billing-ready stock, and reorder insights.</p>
           <div className="mt-8 grid gap-3 text-sm text-slate-300 sm:grid-cols-2">
-            {["Weight-based stock", "Fine gold purity", "Karigar ledgers", "Role dashboards", "Barcode labels", "Audit controls"].map((item) => (
+            {["SKU variants", "Variant images", "Components & BOM", "Returns to stock", "Dead stock alerts", "Role dashboards"].map((item) => (
               <div className="rounded-md border border-white/10 bg-white/5 px-4 py-3" key={item}>{item}</div>
             ))}
           </div>
