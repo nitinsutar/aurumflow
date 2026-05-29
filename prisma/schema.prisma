@@ -23,6 +23,19 @@ enum MaterialType {
   PEARL
   FINDING
   ACCESSORY
+  BRASS
+  COPPER
+  ALLOY
+  CZ
+  AD
+  KUNDAN
+  GLASS_BEAD
+  RESIN
+  CHAIN
+  CLASP
+  HOOK
+  PACKAGING
+  FINISHED_GOOD
 }
 
 enum InventoryStatus {
