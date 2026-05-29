@@ -1,0 +1,6 @@
+import { Badge, Section, Table } from "@/components/ui";
+import { returns } from "@/lib/fashion-data";
+
+export default function ReturnsPage() {
+  return <div className="space-y-6"><div><h1 className="text-2xl font-semibold text-ink">Return Orders</h1><p className="mt-1 text-sm text-slate-500">Record stock returned by clients and add sellable inventory back after QC.</p></div><Section title="Create Return"><form className="grid gap-3 md:grid-cols-5"><input placeholder="Client name" /><input placeholder="SKU" /><input placeholder="Quantity" type="number" /><select><option>Sellable</option><option>Needs QC</option><option>Damaged</option></select><button className="rounded-md bg-ink px-4 py-2 text-sm font-semibold text-white">Add return</button></form></Section><Section title="Recent Returns"><Table headers={["Return No", "Client", "SKU", "Qty", "Condition", "Inventory Action"]}>{returns.map((item) => <tr key={item.returnNo}><td className="px-3 py-3 font-medium">{item.returnNo}</td><td className="px-3 py-3">{item.client}</td><td className="px-3 py-3 font-mono text-xs">{item.sku}</td><td className="px-3 py-3">{item.qty}</td><td className="px-3 py-3"><Badge tone={item.condition === "Sellable" ? "green" : "gold"}>{item.condition}</Badge></td><td className="px-3 py-3">{item.action}</td></tr>)}</Table></Section></div>;
+}
