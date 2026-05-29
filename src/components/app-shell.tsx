@@ -11,8 +11,8 @@ export function AppShell({ user, children }: { user: SessionUser; children: Reac
       <aside className="fixed inset-y-0 left-0 z-20 hidden w-72 border-r border-slate-200 bg-white lg:block">
         <div className="flex h-16 items-center border-b border-slate-100 px-6">
           <div>
-            <p className="text-lg font-bold text-ink">AurumFlow</p>
-            <p className="text-xs text-slate-500">Manufacturing Cloud</p>
+            <p className="text-lg font-bold text-ink">JewelSuite</p>
+            <p className="text-xs text-slate-500">Inventory Cloud</p>
           </div>
         </div>
         <nav className="space-y-1 px-3 py-4">
@@ -36,7 +36,7 @@ export function AppShell({ user, children }: { user: SessionUser; children: Reac
             </div>
             <div className="flex flex-1 items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 lg:max-w-xl">
               <Search className="h-4 w-4 text-slate-400" />
-              <input className="w-full border-0 bg-transparent p-0 text-sm ring-0 focus:border-0 focus:ring-0" placeholder="Search orders, job cards, SKUs, karigars" />
+              <input className="w-full border-0 bg-transparent p-0 text-sm ring-0 focus:border-0 focus:ring-0" placeholder="Search SKUs, variants, components, returns" />
             </div>
             <div className="flex items-center gap-3">
               <div className="hidden text-right sm:block">
