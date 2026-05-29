@@ -10,10 +10,22 @@ export async function POST(request: Request) {
   let session = password === "password123" ? sessionCookieFor(email) : null;
 
   if (!session) {
-    const user = await prisma.user.findUnique({ where: { email }, include: { role: true } });
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: { role: true }
+    });
     const validPassword = user ? await bcrypt.compare(password, user.passwordHash) : false;
     if (user && validPassword && user.active) {
-      session = Buffer.from(JSON.stringify({ name: user.name, email: user.email, role: user.role?.name || "User", slug: user.isSuperAdmin ? "super-admin" : user.role?.slug || "auditor", companyId: user.companyId || undefined }), "utf8").toString("base64url");
+      session = Buffer.from(
+        JSON.stringify({
+          name: user.name,
+          email: user.email,
+          role: user.role?.name || "User",
+          slug: user.isSuperAdmin ? "super-admin" : user.role?.slug || "billing-manager",
+          companyId: user.companyId || undefined
+        }),
+        "utf8"
+      ).toString("base64url");
     }
   }
 
